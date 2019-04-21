@@ -4,10 +4,7 @@ import org.springframework.stereotype.Service;
 import udm.spg.mvc.domain.Product;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Mikhail Mahutsiy on 4/21/2019.
@@ -29,6 +26,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Integer id){
         return products.get(id);
+    }
+    @Override
+    public Product saveOrUpdateProduct(Product product) {
+        if (product != null){
+            if (product.getId() == null){
+                product.setId(getNextKey());
+            }
+            products.put(product.getId(), product);
+
+            return product;
+        } else {
+            throw new RuntimeException("Product Can't be nill");
+        }
+    }
+
+    private Integer getNextKey(){
+        return Collections.max(products.keySet()) + 1;
     }
 
     private void loadProducts(){ //mimic of DB
