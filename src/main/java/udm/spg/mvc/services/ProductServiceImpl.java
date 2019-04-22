@@ -12,7 +12,7 @@ import java.util.*;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private Map<Integer,Product> products;
+    private Map<Integer, Product> products;
 
     public ProductServiceImpl() {
         loadProducts();
@@ -24,13 +24,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Integer id){
+    public Product getProductById(Integer id) {
         return products.get(id);
     }
+
     @Override
     public Product saveOrUpdateProduct(Product product) {
-        if (product != null){
-            if (product.getId() == null){
+        if (product != null) {
+            if (product.getId() == null) {
                 product.setId(getNextKey());
             }
             products.put(product.getId(), product);
@@ -41,11 +42,16 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private Integer getNextKey(){
+    @Override
+    public void deleteProduct(Integer id) {
+        products.remove(id);
+    }
+
+    private Integer getNextKey() {
         return Collections.max(products.keySet()) + 1;
     }
 
-    private void loadProducts(){ //mimic of DB
+    private void loadProducts() { //mimic of DB
         products = new HashMap<>();
 
         Product product1 = new Product();
