@@ -3,7 +3,7 @@ package udm.spg.mvc.domain;
 import java.math.BigDecimal;
 
 /**
- * Created by Mikhail Mahutsiy on 4/21/2019.
+ * Created by magMikail on 4/21/2019.
  **/
 
 public class Product {

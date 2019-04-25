@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * Created by Mikhail Mahutsiy on 4/21/2019.
+ * Created by magMikail on 4/21/2019.
  **/
 @Service
 public class ProductServiceImpl implements ProductService {

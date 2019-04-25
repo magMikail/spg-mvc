@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Created by Mikhail Mahutsiy on 4/23/2019.
+ * Created by magMikail on 4/23/2019.
  **/
 
 public class IndexControllerTest {

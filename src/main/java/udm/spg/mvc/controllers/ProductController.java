@@ -10,7 +10,7 @@ import udm.spg.mvc.domain.Product;
 import udm.spg.mvc.services.ProductService;
 
 /**
- * Created by Mikhail Mahutsiy on 4/21/2019.
+ * Created by magMikail on 4/21/2019.
  **/
 @Controller
 public class ProductController {
