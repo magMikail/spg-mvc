@@ -22,44 +22,42 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping("/products")
-    public String listProducts(Model model){
+    @RequestMapping("product/list")
+    public String listProducts(Model model) {
 
-        model.addAttribute("products", productService.listAllProducts());
+        model.addAttribute("products", productService.listAllProducts()); //?
 
-        return "products";
+        return "product/list";
     }
 
-    @RequestMapping("/product/{id}")
-    public String getProduct(@PathVariable Integer id, Model model){
-
+    @RequestMapping("/product/show/{id}")
+    public String getProduct(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-
-        return "product";
+        return "product/show";
     }
 
-    @RequestMapping("product/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    @RequestMapping("/product/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        return "productform";
+        return "product/productform";
     }
 
     @RequestMapping("/product/new")
-    public String newProduct(Model model){
+    public String newProduct(Model model) {
         model.addAttribute("product", new Product());
-        return "productform";
+        return "product/productform";
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String saveOrUpdateProduct(Product product){
+    public String saveOrUpdateProduct(Product product) {
         Product savedProduct = productService.saveOrUpdateProduct(product);
-        return "redirect:/product/" + savedProduct.getId();
+        return "redirect:/product/show/" + savedProduct.getId();
     }
 
-    @RequestMapping("/product/delete/{id}")
-    public String delete(@PathVariable Integer id){
+    @RequestMapping("product/delete/{id}")   //<td><a th:href="${'/product/delete/'+product.id}">Delete</a> </td>
+    public String delete(@PathVariable Integer id) {
         productService.deleteProduct(id);
 
-        return "redirect:/products";
+        return "redirect:/product/list"; //html file
     }
 }
