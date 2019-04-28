@@ -24,9 +24,7 @@ public class ProductController {
 
     @RequestMapping("product/list")
     public String listProducts(Model model) {
-
         model.addAttribute("products", productService.listAllProducts()); //?
-
         return "product/list";
     }
 
@@ -54,7 +52,7 @@ public class ProductController {
         return "redirect:/product/show/" + savedProduct.getId();
     }
 
-    @RequestMapping("product/delete/{id}")   //<td><a th:href="${'/product/delete/'+product.id}">Delete</a> </td>
+    @RequestMapping("/product/delete/{id}")   //<td><a th:href="${'/product/delete/'+product.id}">Delete</a> </td>
     public String delete(@PathVariable Integer id) {
         productService.deleteProduct(id);
 

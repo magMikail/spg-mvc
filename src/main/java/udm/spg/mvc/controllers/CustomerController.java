@@ -7,7 +7,10 @@ package udm.spg.mvc.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import udm.spg.mvc.domain.Customer;
 import udm.spg.mvc.services.CustomerService;
 
 /**
@@ -46,11 +49,40 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping("/customer")
-    public String listProducts(Model model) {
+    @RequestMapping("customer/list")
+    public String listCustomers(Model model) {
+        model.addAttribute("customers", customerService.listAllCustomers());//?
+        return "customer/list";
+    }
 
-        model.addAttribute("products", customerService.listAllCustomers());
+    @RequestMapping("/customer/show/{id}")
+    public String getCustomer(@PathVariable Integer id, Model model) {
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        return "customer/show";
+    }
 
-        return "customers";
+    @RequestMapping("/customer/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        return "customer/customerform";
+    }
+
+    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    public String saveOrUpdateProduct(Customer customer) {
+        Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
+        return "redirect:/customer/show/" + savedCustomer.getId();
+    }
+
+    @RequestMapping("/customer/new")
+    public String newProduct(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "customer/customerform";
+    }
+
+    @RequestMapping("/customer/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        customerService.deleteCustomer(id);
+
+        return "redirect:/customer/list";
     }
 }
