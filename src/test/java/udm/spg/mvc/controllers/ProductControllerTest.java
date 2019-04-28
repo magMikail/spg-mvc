@@ -50,9 +50,9 @@ public class ProductControllerTest {
         //specific Mockito interaction, tell stub to return list of products
         when(productService.listAllProducts()).thenReturn((List) products); //need to strip generics to keep Mockito happy.
 
-        mockMvc.perform(get("/products/"))
+        mockMvc.perform(get("/product/list"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("products"))
+                .andExpect(view().name("product/list"))
                 .andExpect(model().attribute("products", hasSize(2)));
     }
 
@@ -63,9 +63,9 @@ public class ProductControllerTest {
         //Tell Mockito stub to return new product for ID 1
         when(productService.getProductById(id)).thenReturn(new Product());
 
-        mockMvc.perform(get("/product/1"))
+        mockMvc.perform(get("/product/show/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("product"))
+                .andExpect(view().name("product/show"))
                 .andExpect(model().attribute("product", instanceOf(Product.class)));
     }
 
@@ -78,7 +78,7 @@ public class ProductControllerTest {
 
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("productform"));
+                .andExpect(view().name("product/productform"));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class ProductControllerTest {
 
         mockMvc.perform(get("/product/new"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("productform"))
+                .andExpect(view().name("product/productform"))
                 .andExpect(model().attribute("product", instanceOf(Product.class)));
     }
 
@@ -115,7 +115,7 @@ public class ProductControllerTest {
                 .param("price", "12.00")
                 .param("imageUrl", "example.com"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/product/1"))
+                .andExpect(view().name("redirect:/product/show/1"))
                 .andExpect(model().attribute("product", instanceOf(Product.class)))
                 .andExpect(model().attribute("product", hasProperty("id", is(id))))
                 .andExpect(model().attribute("product", hasProperty("description", is(description))))
@@ -138,7 +138,7 @@ public class ProductControllerTest {
 
         mockMvc.perform(get("/product/delete/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/products"));
+                .andExpect(view().name("redirect:/product/list"));
 
         verify(productService, times(1)).deleteProduct(id);
     }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 public class IndexController {
-    @RequestMapping("/")
+    @RequestMapping("/") //path that we want to map to   'http://localhost:8080'+'/'
     public String index() {
-        return "index";
+        return "index"; //index html - thymeleaf template
     }
 }
