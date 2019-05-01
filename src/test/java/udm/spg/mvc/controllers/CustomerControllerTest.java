@@ -90,7 +90,6 @@ public class CustomerControllerTest {
                 .andExpect(model().attribute("customer", instanceOf(Customer.class)));
     }
 
-    @Ignore
     @Test
     public void testSaveOrUpdate() throws Exception {
         Integer id = 1;
@@ -105,6 +104,7 @@ public class CustomerControllerTest {
         String zipCode = "zipCode";
 
         Customer returnCustomer = new Customer();
+        returnCustomer.setId(id);
         returnCustomer.setFirstName(firstName);
         returnCustomer.setLastName(lastName);
         returnCustomer.setEmail(email);
