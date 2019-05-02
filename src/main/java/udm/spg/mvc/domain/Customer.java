@@ -1,25 +1,18 @@
 package udm.spg.mvc.domain;
 
+import javax.persistence.*;
+
 /**
  * Created by magMikail on 4/27/2019.
  **/
-
-/**
- * first name,
- * last name,
- * email,
- * phone number,
- * address line one,
- * address line two,
- * city,
- * state,
- * zip code.
- * All properties are strings. All should be private and have getters and setters.
- * <p>
- * Add an id value to your customer object. The Id should be an Integer and have a getter and setter.
- */
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Version
+    private Integer version;
 
     private String firstName;
     private String lastName;
@@ -37,6 +30,14 @@ public class Customer {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getFirstName() {
