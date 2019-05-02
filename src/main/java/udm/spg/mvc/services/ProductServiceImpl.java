@@ -1,5 +1,6 @@
 package udm.spg.mvc.services;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import udm.spg.mvc.domain.Product;
 
@@ -10,6 +11,7 @@ import java.util.*;
  * Created by magMikail on 4/21/2019.
  **/
 @Service
+@Profile("map")
 public class ProductServiceImpl implements ProductService {
 
     private Map<Integer, Product> products;
