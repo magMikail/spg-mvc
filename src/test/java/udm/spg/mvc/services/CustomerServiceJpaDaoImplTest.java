@@ -8,6 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import udm.spg.mvc.config.JpaIntegrationConfig;
+import udm.spg.mvc.domain.Customer;
 import udm.spg.mvc.domain.Product;
 
 import java.util.List;
@@ -15,49 +16,48 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by magMikail on 5/4/2019.
+ * Created by magMikail on 5/7/2019.
  **/
+
 @RunWith(SpringJUnit4ClassRunner.class)
 //@SpringApplicationConfiguration(JpaIntegrationConfig.class) //deprecated
 @ContextConfiguration(classes = JpaIntegrationConfig.class)
 @ActiveProfiles({"jpadao"})
-public class ProductServiceJpaDaoImplTest {
-
-    private ProductService productService;
+public class CustomerServiceJpaDaoImplTest {
+    private CustomerService customerService;
 
     @Autowired
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @Test
     @DirtiesContext
     public void testListMethod() throws Exception {
-        List<Product> products = productService.listAllProducts();
-
-        assert products.size() == 5;
+        List<Customer> customers = customerService.listAllCustomers();
+        assert customers.size() == 3;
     }
 
     @Test
     @DirtiesContext
-    public void testGetProductById() {
+    public void testGetCustomerById() {
         Integer id = 1;
-        Product product = productService.getProductById(id);
-        assertEquals(product.getId(), id);
+        Customer customer = customerService.getCustomerById(id);
+        assertEquals(customer.getId(), id);
     }
 
     @Test
     @DirtiesContext
-    public void testSaveOrUpdateProduct() {
-        productService.saveOrUpdateProduct(new Product());
-        assertEquals(productService.listAllProducts().size(), 6);
+    public void testSaveOrUpdateCustomer() {
+        customerService.saveOrUpdateCustomer(new Customer());
+        assertEquals(customerService.listAllCustomers().size(), 4);
     }
 
     @Test
     @DirtiesContext
-    public void testDeleteProduct() {
-        productService.deleteProduct(1);
-        assertEquals(productService.listAllProducts().size(), 4);
+    public void testDeleteCustomer() {
+        customerService.deleteCustomer(1);
+        assertEquals(customerService.listAllCustomers().size(), 2);
     }
 
 }

@@ -1,5 +1,6 @@
 package udm.spg.mvc.services;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import udm.spg.mvc.domain.Customer;
 
@@ -9,6 +10,7 @@ import java.util.*;
  * Created by magMikail on 4/27/2019.
  **/
 @Service
+@Profile("map")
 public class CustomerServiceImpl implements CustomerService {
 
     private Map<Integer, Customer> customers;
